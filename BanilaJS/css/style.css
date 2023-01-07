@@ -1,0 +1,25 @@
+body {
+    background-color: skyblue;
+    background-position: center center;
+    height: 100vh;
+        width: 100vw;
+background-size: cover;
+background-repeat: no-repeat;
+background-size : cover;
+}
+h1 {
+    color: cornflowerblue;
+    transition: color 0.5s ease-in-out;
+}
+
+.clicked {
+    color:tomato;
+}
+.hidden {
+    display: none;
+}
+
+#clock {
+    text-align : center;
+}
+
