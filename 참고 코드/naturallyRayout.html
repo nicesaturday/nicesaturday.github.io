@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            width: 100%;
+            overflow-x: hidden;
+        }
+        #nav{
+            width: 100%;
+        }
+        #nav_bar{
+            width: 960px;
+            height: 20px;
+            margin: 20px auto;
+            
+        }
+        .nav_bar_item{
+            width: 192px;
+            list-style: none;
+            float: left;
+            text-align: center;
+            background-color: blanchedalmond;
+        }
+        .nav_bar_item:hover {
+            background-color: blue;
+
+        }
+        #nav_bar:hover ~ #nav_bar_sub {
+            transition : 2s;
+            z-index: 1;
+            height: 200px;
+            
+        }
+        .nav_bar_item ul{
+            display: none;
+            height: 0px;
+            list-style: none;
+        }
+        #nav_bar:hover .nav_bar_item ul {
+            transition : 2s;
+            display: block;
+            height: 200px;
+            overflow: hidden;
+        }
+        .nav_bar_item:hover ul {
+            background-color: beige;
+        }
+        @media (max-width:959px) {
+            
+            .nav_bar_item {
+                clear: both;
+            }
+        }
+        #nav1 {
+            width: 100%;
+            float: left;
+            list-style: none;
+        }
+        #nav_bar2 {
+            width: 960px;
+            margin: 20px auto;
+        }
+        #nav_bar2 li ul {
+            overflow:hidden; 
+            transition:0.8s;
+            height: 0;
+            list-style: none;
+        }
+        #nav_bar2 li:hover ul {
+            height: 130px;
+        }
+        
+
+
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <div id="nav_bar">
+            <ul>
+             <li class="nav_bar_item">a
+                <ul>
+                    <li>서브1</li>
+                    <li>서브2</li>
+                    <li>서브3</li>
+                    <li>서브4</li>
+                    <li>서브5</li>
+                </ul>
+             </li>
+             <li class="nav_bar_item">b
+                <ul>
+                    <li>서브1</li>
+                    <li>서브2</li>
+                    <li>서브3</li>
+                    <li>서브4</li>
+                    <li>서브5</li>
+                </ul>
+             </li>
+             <li class="nav_bar_item">c
+                <ul>
+                    <li>서브1</li>
+                    <li>서브2</li>
+                    <li>서브3</li>
+                    <li>서브4</li>
+                    <li>서브5</li>
+                </ul>
+             </li>
+             <li class="nav_bar_item">d
+                <ul>
+                    <li>서브1</li>
+                    <li>서브2</li>
+                    <li>서브3</li>
+                    <li>서브4</li>
+                    <li>서브5</li>
+                </ul>
+             </li>
+             <li class="nav_bar_item">e
+                <ul>
+                    <li>서브1</li>
+                    <li>서브2</li>
+                    <li>서브3</li>
+                    <li>서브4</li>
+                    <li>서브5</li>
+                </ul>
+             </li>
+            </ul>
+        </div>
+        <div id="nav_bar_sub">
+        </div>
+    </div>
+
+    <div id="nav1">
+        <div id="nav_bar2">
+            <li>메뉴1
+                <ul>
+                    <li>서브1</li>
+                    <li>서브2</li>
+                    <li>서브3</li>
+                    <li>서브4</li>
+                    <li>서브5</li>
+                </ul>
+            </li>
+            <li>메뉴2
+                <ul>
+                    <li>서브1</li>
+                    <li>서브2</li>
+                    <li>서브3</li>
+                    <li>서브4</li>
+                    <li>서브5</li>
+                </ul>
+            </li>
+            <li>메뉴3
+                <ul>
+                    <li>서브1</li>
+                    <li>서브2</li>
+                    <li>서브3</li>
+                    <li>서브4</li>
+                    <li>서브5</li>
+                </ul>
+            </li>
+            <li>메뉴4
+                <ul>
+                    <li>서브1</li>
+                    <li>서브2</li>
+                    <li>서브3</li>
+                    <li>서브4</li>
+                    <li>서브5</li>
+                </ul>
+            </li>
+            <li>메뉴5
+                <ul>
+                    <li>서브1</li>
+                    <li>서브2</li>
+                    <li>서브3</li>
+                    <li>서브4</li>
+                    <li>서브5</li>
+                </ul>
+            </li>
+        </div>
+    </div>
+
+
+</body>
+</html>

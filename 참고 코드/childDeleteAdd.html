@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+        #wrap{
+            width: 100%;
+            margin: 20px auto;
+        }
+        #test{
+            width: 600px;
+            margin: 0 auto;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="test">
+            너비 : <input type="text" id="1" value="200"> px  높이 : <input type="text" id="2" value="400"> px<br><br>
+            글자크기 : <input type="text" id="3"> px 굵기 : 보통 <input type="radio" id="4" name="checkBox1" value="medium"> 굵게 <input type="radio" id="5" name="checkBox1" value="solid" checked><br><br>
+            글자색 : <input type="text" id="6" value="red"> 배경색 : <input type="text" id="7" value="yellow"><br><br>
+            가로정렬 : 왼쪽<input type="radio" id="8" name="checkBox2" value="left">가운데<input type="radio" id="9" name="checkBox2" value="">오른쪽<input type="radio" id="10" name="checkBox2" value="right"><br><br>
+            세로정렬: 위<input type="radio" id="11" name="checkBox3" value="top">가운데<input type="radio" id="12" name="checkBox3" value="center">아래<input type="radio" id="13" name="checkBox3" value="bottom"><br><br>
+            출력 문자열 : <input type="text" id="14" value="Hello world!!"><br><br>
+        <button type="button" onclick="onClick()">적용하기</button>
+
+        </div>
+    </div>
+    <script>
+        
+
+        function onClick(){
+            let test = document.getElementById("test");
+            let id1 = document.getElementById("1").value;
+            let id2 = document.getElementById("2").value;
+            let id3 = document.getElementById("3").value;
+            let cb1 = document.querySelector("input[name='checkBox1']:checked").value;
+            let id6 = document.getElementById("6").value;
+            let id7 = document.getElementById("7").value;
+            let cb2 = document.querySelector("input[name='checkBox2']:checked").value;
+            let cb3 = document.querySelector("input[name='checkBox3']:checked").value;
+            let id14 = document.getElementById("14").value;
+
+            let div1 = document.createElement("div");
+            let div2 = document.createElement("div");
+            div1.style = `width: ${id1}px; height: ${id2}px; border-style: ${cb1}; background-color: ${id7}; float: ${cb2};`;
+            div2.style = `font-size: ${id3}px; color: ${id6}; text-align: ${cb3};`;
+            div2.innerText = id14;
+            test.appendChild(div1);
+            div1.appendChild(div2);
+
+
+        }
+    </script>
+</body>
