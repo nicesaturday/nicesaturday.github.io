@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            width: 100%;
+            height: 100vh;
+        }
+        #content {
+            width: 200px;
+            height: 200px;
+            background-color: blueviolet;
+            position: relative;
+            white-space: nowrap;
+            right: -40%;
+            top: 40%;
+            overflow: hidden;
+        }
+        #box1 {
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+            background-color: aqua;
+        
+        }
+        #box2 {
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+            background-color: bisque;
+    
+            transition: all 2s;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div id="box1"></div>
+        <div id="box2"></div>
+    </div>
+    <button id="btn">switch</button>
+
+    
+
+      
+    </div>
+    <script>
+    let box1 = document.getElementById("box1");
+    let box2 = document.getElementById("box2");
+    let isBox2Visible = true;
+
+    function onClick() {
+        if (isBox2Visible) {
+            box2.style.transform = "translateX(-102.5%)";
+            btn.innerText = "switch";
+        } else {
+            box2.style.transform = "translateX(0)";
+            btn.innerText = "back";
+        }
+        isBox2Visible = !isBox2Visible;
+    }
+
+    btn.addEventListener("click", onClick);
+
+    </script>
+</body>
+</html>
