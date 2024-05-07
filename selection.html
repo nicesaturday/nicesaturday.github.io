@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <select id="go_bus" name="go_bus">]
+        <option value=""></option>
+        <option value="100">인천</option>
+    </select>
+    <button onclick="onClick()">검색</button>
+    <script>
+        function onClick() {
+            let go_num = $('#go_bus').val();
+        
+        $.ajax({
+            url: `https://apis.data.go.kr/1613000/ExpBusInfoService/getStrtpntAlocFndExpbusInfo?serviceKey=oHfkaY88BRbD4M%2Fyx0m%2FtGQPCrjTmC97aKXu0LTqSYr8GwNqviM39OcSFzo00QDQ%2F8wqx98BelfUj%2BrtOSwqyA%3D%3D&pageNo=1&numOfRows=10&_type=json&depTerminalId=NAEK${go_num}&arrTerminalId=NAEK602&depPlandTime=20240508&busGradeId=1`,
+            type: "get",
+            dataType: "json",
+            success:function (data) {
+                console.log(data.response.body.items);
+            }
+        })
+        }
+    </script>
+</body>
+</html>
