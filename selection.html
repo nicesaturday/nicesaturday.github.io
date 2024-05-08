@@ -76,7 +76,7 @@
         }
         #option_wrap_item {
             width: 900px;
-            margin: 20px auto;
+            margin: 20px 5px;
         }
         #selectInput {
             width: 30%;
@@ -92,6 +92,40 @@
             border: none;
             
         }
+
+        #btn {
+            width: 15%;
+            height: 60px;
+            align-self: center;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            width: 100%;
+            height: 60px;
+            background-color: #F24405;
+            align-self: center;
+            font-size: x-large;
+            color: #fff;
+            cursor: pointer;
+            border: #fff;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            width: 90%;
+            height: 90%;
+            font-size: larger;
+            transition: all 1s;
+        } 
+        input[type="date"]{
+    background-color: #0080ff;
+    color: #ffffff;
+    border: none;
+    outline: none;
+}
     </style>
 </head>
 <body>
@@ -125,26 +159,26 @@
                     <option value="602">전주</option>
                     <option></option>
                 </select>
-                <input id="selectInput" type="date" name="schedule" min="2024-05-01" max="2022-05-30" />
+                <label for="selectInput">
+                    <input id="selectInput" type="date" name="schedule" data-placeholder="출발일" min="2024-05-01" max="2024-05-30" />
+                </label>
+            </div>
+            <div id="btn">
+                <button onclick="onClick()">조회하기</button>
             </div>
         </div>
     </div>
 
 
 
-
-
-    <!-- <select id="go_bus" name="go_bus">]
-        <option value=""></option>
-        <option value="100">인천</option>
-    </select>
-    <button onclick="onClick()">검색</button>
     <script>
         function onClick() {
-            let go_num = $('#go_bus').val();
-        
+            let start_lo = $("select[name=start_lo] option:selected").val();
+            let end_lo = $("select[name=end_lo] option:selected").val();
+            let start_date = $("input[type=date]").val().replace(/[^0-9]/g,"");
+            console.log(start_date);
         $.ajax({
-            url: `https://apis.data.go.kr/1613000/ExpBusInfoService/getStrtpntAlocFndExpbusInfo?serviceKey=oHfkaY88BRbD4M%2Fyx0m%2FtGQPCrjTmC97aKXu0LTqSYr8GwNqviM39OcSFzo00QDQ%2F8wqx98BelfUj%2BrtOSwqyA%3D%3D&pageNo=1&numOfRows=10&_type=json&depTerminalId=NAEK${go_num}&arrTerminalId=NAEK602&depPlandTime=20240508&busGradeId=1`,
+            url: `https://apis.data.go.kr/1613000/ExpBusInfoService/getStrtpntAlocFndExpbusInfo?serviceKey=oHfkaY88BRbD4M%2Fyx0m%2FtGQPCrjTmC97aKXu0LTqSYr8GwNqviM39OcSFzo00QDQ%2F8wqx98BelfUj%2BrtOSwqyA%3D%3D&pageNo=1&numOfRows=10&_type=json&depTerminalId=NAEK${start_lo}&arrTerminalId=NAEK${end_lo}&depPlandTime=${start_date}&busGradeId=1`,
             type: "get",
             dataType: "json",
             success:function (data) {
@@ -152,6 +186,6 @@
             }
         })
         }
-    </script> -->
+    </script> 
 </body>
 </html>
