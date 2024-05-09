@@ -121,11 +121,32 @@
             transition: all 1s;
         } 
         input[type="date"]{
-    background-color: #0080ff;
-    color: #ffffff;
-    border: none;
-    outline: none;
-}
+            background-color: #0080ff;
+            color: #ffffff;
+            border: none;
+            outline: none;
+        }
+        #result_wrap {
+			width: 1200px;
+            height: auto;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-template-rows: auto;
+		}
+        #result_wrap div {
+            width: 100%;
+            height: 50px;
+            font-size: larger;
+            font-weight: 500;
+            text-align: center;
+        }
+        #result_wrap div:last-child {
+            padding-bottom: 100px;
+        }
+        .result_wrap_head {
+            background-color: #F24405;
+        }
     </style>
 </head>
 <body>
@@ -167,22 +188,45 @@
                 <button onclick="onClick()">조회하기</button>
             </div>
         </div>
+        <div id="result_wrap">
+
+        </div>
     </div>
 
 
 
     <script>
+
+        let result_wrap = $("#result_wrap");
+		
+
+
+
+		function make_menu_Layout() {
+			result_wrap.prepend("<div class='result_wrap_head'>출발시간</div><div class='result_wrap_head'>도착시간</div><div class='result_wrap_head'>등급</div><div class='result_wrap_head'>가격</div>");
+		}
+        let is_showed = false;
+
+
+
+
         function onClick() {
             let start_lo = $("select[name=start_lo] option:selected").val();
             let end_lo = $("select[name=end_lo] option:selected").val();
             let start_date = $("input[type=date]").val().replace(/[^0-9]/g,"");
             console.log(start_date);
         $.ajax({
-            url: `https://apis.data.go.kr/1613000/ExpBusInfoService/getStrtpntAlocFndExpbusInfo?serviceKey=oHfkaY88BRbD4M%2Fyx0m%2FtGQPCrjTmC97aKXu0LTqSYr8GwNqviM39OcSFzo00QDQ%2F8wqx98BelfUj%2BrtOSwqyA%3D%3D&pageNo=1&numOfRows=10&_type=json&depTerminalId=NAEK${start_lo}&arrTerminalId=NAEK${end_lo}&depPlandTime=${start_date}&busGradeId=1`,
+            url: `https://apis.data.go.kr/1613000/ExpBusInfoService/getStrtpntAlocFndExpbusInfo?serviceKey=oHfkaY88BRbD4M%2Fyx0m%2FtGQPCrjTmC97aKXu0LTqSYr8GwNqviM39OcSFzo00QDQ%2F8wqx98BelfUj%2BrtOSwqyA%3D%3D&pageNo=1&numOfRows=15&_type=json&depTerminalId=NAEK${start_lo}&arrTerminalId=NAEK${end_lo}&depPlandTime=${start_date}&busGradeId=1`,
             type: "get",
             dataType: "json",
             success:function (data) {
-                console.log(data.response.body.items);
+                make_menu_Layout();
+                let result = data.response.body.items.item;
+                result.forEach(function(item) {
+                    result_wrap.append("<div><h6>"+item.depPlandTime.replace(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})/g,'$1-$2-$3-$4-$5')+"</h6></div><div><h6>"+item.arrPlandTime+"</h6></div><div><h6>"+item.gradeNm+"</h6></div><div><h6>"+item.charge+"원</h6></div>");
+                });
+                is_showed = true;
+                console.log(data.response.body.items.item);
             }
         })
         }
