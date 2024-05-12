@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <title>Document</title>
     <style>
         * {
@@ -11,53 +12,79 @@
         }
         body {
             width: 100%;
-            height: 100vh;
-            
+            height: auto;
+            overflow-x: hidden;
         }
+        a {color: #F24405;text-decoration: none; outline: none}
+        a:hover{text-decoration: none;}
+
         #content {
             width: 100%;
-            height: 100%;
+            height: auto;
         }
-        #dark {
-            width: 100%;
-            height: 100vh;
-            /* display: none;  */
-            position: absolute;
-            background-color: black;
-            opacity: 0.3;
-        }
+        
+
         #popup {
             width: 100%;
-            height: 100%;
-            display: none; 
-             /* display: none;  */
-            position: fixed;
+            height: 0;  
             display: flex;
             justify-content: center;
             align-items: flex-start;
+            transition : all 0.5s;
         }
         #popup_item {
             width: 900px;
-            height: 400px;
-            /* display: none;  */
-            margin-top: 20%;
-            position: absolute;
+            height: 0;
+            position: absolute; 
+            margin-top: 10%;
             background-color: white;
+            transition : all 0.5s;
         }
-        #img_wrap{
+        #popup_item_img_wrap{
             width: 100%;
-            height: 50%;
+            height: 20%;
             
         }
-        #img_wrap img {
+        #popup_item_img_wrap img {
             width: 100%;
-            height: 30%;
+            height: 100%;
+            
         }
-        #title_wrap {
+        #popup_item_title_wrap {
             position: absolute;
             color: #F24405;
             top: 5%;
             left: 40%;
+        }
+        #popup_item_main_wrap {
+            width: 100%;
+            height: 80%;
+            padding: 10px 0;
+        }
+        #grid_popup_item_main_warp {
+            width: 95%;
+            height: 95%;
+            margin: auto;
+            display: grid;
+            overflow: hidden;
+            gap: 10px;
+            grid-template-columns: 1fr 2fr;
+            grid-template-rows: 50%;
+
+        }
+        #grid_popup_item_main_warp img {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #grid_popup_item_main_warp div p {
+            line-height: 40px; 
+        }
+        .button.button--moema.popup_item_button {
+            font-weight: 700;
+            color: #F24405;
+            border-color: #F24405;
+            border-radius: 25px;
         }
         #top_wrap {
             width: 1200px;
@@ -93,17 +120,189 @@
         #item_date {
             color: #F24405;
         }
-        .item_buttom {
+        button.button--moema.item_button {
+            font-weight: 700;
             color: #F24405;
             border-color: #F24405;
-            border-radius: 20%;
+            border-radius: 25px;
         }
+        .button--moema {
+  padding: 1em 1.5em;
+  border-radius: 50px;
+  background: white;
+  color: #F24405;
+  -webkit-transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
+}
+.button--moema.button--inverted {
+  background: #ECEFF1;
+  color: #37474f;
+}
+.button--moema:hover {
+  -webkit-transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
+  transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
+  color: #ECEFF1;
+  -webkit-animation: anim-moema-1 0.3s forwards;
+  animation: anim-moema-1 0.3s forwards;
+}
+.button--moema.button--inverted:hover {
+  color: #ECEFF1;
+  background-color: #7986cb;
+}
+.button--moema:hover::before {
+  -webkit-animation: anim-moema-2 0.3s 0.3s forwards;
+  animation: anim-moema-2 0.3s 0.3s forwards;
+}
+@-webkit-keyframes anim-moema-1 {
+  60% {
+    -webkit-transform: scale3d(0.8, 0.8, 1);
+    transform: scale3d(0.8, 0.8, 1);
+  }
+  85% {
+    -webkit-transform: scale3d(1.1, 1.1, 1);
+    transform: scale3d(1.1, 1.1, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes anim-moema-1 {
+  60% {
+    -webkit-transform: scale3d(0.8, 0.8, 1);
+    transform: scale3d(0.8, 0.8, 1);
+  }
+  85% {
+    -webkit-transform: scale3d(1.1, 1.1, 1);
+    transform: scale3d(1.1, 1.1, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@-webkit-keyframes anim-moema-2 {
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes anim-moema-2 {
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.modal{
+	opacity : 0;
+	
+	position: fixed;
+	top: 0px; left: 0;
+	width: 100%; height: 100%;
+	
+	max-width : 100%;
+	max-height : 100%;
+
+	display: flex;
+	justify-content: center;
+	align-items : center;
+	
+	transition : opacity 0.5s;
+}
+.modal.opaque{
+	opacity : 1;
+	transition : opacity 0.5s;
+}
+.modal.unstaged {
+	top:-100px;
+	height : 0;
+}
+
+.modal-overlay{
+	position : absolute;
+	
+	width : 100%;
+	height : 100%;
+	background-color : RGBA(0, 0, 0, 0.6);
+}
+
+.modal-contents{
+	display:flex;
+	flex-direction : column;
+	align-items : center;
+	position: relative;
+	
+	padding: 50px 100px;
+	width: auto;
+	max-width : 80%;
+	max-height : 80%;
+
+	text-align: center;
+	background-color: rgb(255,255,255);
+	border-radius: 6px;
+}
+
+.modal-text{
+	text-align:left;
+	overflow: auto;
+}
+
+.modal-close{
+	margin-top : 20px;
+	padding : 5px 20px;
+	
+	color : #FFFFFF;
+	font-weight : bolder;
+	font-size : 30px;
+	background-color : #ffaa00;
+	border-radius : 7px;
+	cursor : pointer;
+	
+	transition : all 0.5s;
+}
+.modal-close:hover{
+	background-color : #ffd500;
+}
+
+        
     </style>
 </head>
 <body>
-    <div id="dark"></div>
+    <div id="modal-container" class="modal unstaged">
+        <div class="modal-overlay" id="modal-close"></div>
+        
+            <div id="popup">
+                <div id="popup_item">
+                    <div id="popup_item_img_wrap">
+                        <img src="jen.png" alt="">
+                    </div>
+                    <div id="popup_item_title_wrap">
+                        <h2>전주대사습놀이</h2>
+                    </div>
+                    <div id="popup_item_main_wrap">
+                         <div id="grid_popup_item_main_warp">
+                            <img src="jen.png" alt="">
+                            <h5>대한민국 전통문화가 살아 숨 쉬는 예향의 고장인 전주에서 국악축제가 펼쳐진다. '사습놀이'란 조선 숙종때의 마상궁술대회와 영조때의 물놀이와 판소리, 백일장 등 민속무예놀이를 일컫던 말이다. 영조 8년(1732년) 지방 재인청(신청)과 가무 대사습청의 설치에 따라 전주에 4개정(군사정, 의방정, 다기정, 진북정)을 두었고, 최초로 대사습대회가 베풀어진 뒤 매년 연례행사로 실시되었다.a</h5>
+                            <img src="jen.png" alt="">
+                            <div>
+                                <p>a</p>
+                                <p>b</p>
+                                <p>c</p>
+                                <p>d</p>
+                                <button class="button button--moema popup_item_button"><a href="https://www.jjdss.or.kr/" target='_blank'>홈페이지 ></a></button>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>	
+        
+      </div>
     <div id="content">    
-        <div id="popup">
+        <!-- 
+            <div id="popup">
             <div id="popup_item">
                 <div id="img_wrap">
                     <img src="jen.png" alt="">
@@ -113,6 +312,11 @@
                 </div>
             </div>
         </div>
+
+         -->
+    
+
+
         <div id="top_wrap">
             대표축제
         </div>
@@ -133,7 +337,7 @@
                         <div class="item_title">전주대사습놀이</div>
                         <div class="item_detail">대한민국 전통문화가 살아 숨쉬는 예향의 고장인 전주에서 국악축제가 펼쳐진다.</div>
                         <div class="item_date">2024.05.16 (토) ~ 06.03 (월)</div>
-                        <button class="item_button">더보기 ></button>
+                        <button class="button button--moema item_button" >더보기 ></button>
                     </div>
                 </div>
                 <div>
@@ -212,19 +416,59 @@
         </div>
     </div>
     <script>
-        //팝업 누르면 스크롤 불가 이벤트
-        function popUpClicked() {
-            let body = document.body;
-            body.style.overflow = "hidden";
-        }
-        function darkClicked() {
-            let body = document.body;
-            body.style.overflow = "";
-        }
+        //이벤트 망가질 경우에 none 으로 강제 변경
+     
+        //open modal
+     document.querySelector(' button.button--moema.item_button').addEventListener("click", function(e){
+        console.log(e);
+        document.querySelector(' button.button--moema.item_button').style.visibility = "hidden";
+        document.getElementById('modal-container').classList.toggle('opaque');
+        document.getElementById('modal-container').classList.toggle('unstaged');
+        document.getElementById('popup').style.height = "100%";
+        document.getElementById('popup_item').style.height = "600px";
+
+});
+
+//close modal
+    document.getElementById('modal-close').addEventListener("click", function(e){
+        //버튼이 0.5초 뒤에 보인다. (버튼이 바로 보이게 하면 modal-close보다 컨텐츠가 더 빨리 나타나서 좋지않음);
+        setTimeout(function() {document.querySelector(' button.button--moema.item_button').style.visibility = "visible";},500);
+        document.getElementById('modal-container').style.pointerEvents = "none";
+        document.getElementById('popup').style.height = "0";
+        document.getElementById('popup_item').style.height = "0";
+        document.getElementById('modal-container').classList.toggle('opaque');
+        document.getElementById('modal-container').addEventListener('transitionend', function(e){
+            this.classList.toggle('unstaged');
+            this.removeEventListener('transitionend',arguments.callee);
+        //레이아웃이 꺼질때, 이벤트를 막아서 검은화면만 남는 것을
+        setTimeout(function() {document.getElementById('modal-container').style.pointerEvents = "auto";},1000);
+  });
+});
+
+
+        // let body = document.body;
+        // let dark = document.getElementById("dark");
+        // let popup = document.getElementById("popup");
+        // let popup_item = document.getElementById("popup_item");
+
+
+        // function popUpClicked() {
+        //     dark.style.height = "100%";
+        //     popup.style.display = "flex";
+        //     popup_item.style.display = "block";
+        //     body.style.overflow = "hidden";
+        // }
+        // function darkClicked() {
+        //     dark.style.height = "0%";
+        //     popup.style.display = "none";
+        //     popup_item.style.display = "none";
+        //     body.style.overflow = "";
+        // }
 
 
 
-        window.addEventListener("scroll",popUped);
+    
     </script>
+     
 </body>
 </html>
