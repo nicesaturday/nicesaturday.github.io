@@ -1,0 +1,208 @@
+1. main.jsp
+
+// 멤버가 선택한 장르태그 불러오기 == List<MEMBER_GENRE>
+SELECT
+	TAG_NO
+FROM
+	MEMBER_GENRE
+WHERE
+	MEMBER_NO = #{member_no}
+ORDER
+BY
+	TAGE_NO
+DESC
+
+// 랜덤(멤버의 장르는 하나가 아님)으로 메인페이지에 멤버가 선택한 장르를 가진 상품 리스트 출력
+   == List<Product>
+SELECT 
+            PRODUCT_NO,
+	PRODUCT_NAME,
+	PRODUCT_DETAIL,
+	PRODUCT_PHOTO1
+FROM
+	PRODUCT
+WHERE
+	TAG_NO = #{tag_no}
+ORDER
+BY
+	PRODUCT_NO
+DESC
+
+// 최신 상품 리스트 출력
+SELECT 
+            PRODUCT_NO,
+	PRODUCT_NAME,
+	PRODUCT_DETAIL,
+	PRODUCT_PHOTO1
+FROM
+	PRODUCT
+ORDER
+BY
+	PRODUCT_DATE
+DESC
+
+
+//인기 상품 리스트 출력 (r.STAR 는 출력 안해도 될듯)
+SELECT
+	p.PRODUCT_NO,
+	p.PRODUCT_NAME,
+	p.PRODUCT_DETAIL,
+	p.PRODUCT_PHOTO1,
+	r.STAR
+FROM
+	PRODUCT p
+JOIN
+	REPLY r
+ON
+	p.PRODUCT_NO = r.PRODUCT_NO
+ORDER
+BY
+	r.STAR
+DESC
+
+
+// 해당 멤버의 카트 리스트 갯수 , 게스트의 카트 리스트 갯수
++++ 세션에서 member가 있으면 member 의 카트 상품 갯수
+                   없는데 게스트가 있으면 게스트의 카트 상품 갯수
+SELECT
+	COUNT(*)
+FROM
+	CART
+WHERE
+	MEMBER_NO = #{member_no}
+
+SELECT
+	COUNT(*)
+FROM
+	GUEST_CART
+WHERE
+	GUEST_NO = #{guestr_no}
+
+// 게스트가 상품을 샀는지 안샀는지?
+// 게스트가 상품을 전부 수령 했으면 삭제. (관리자가? 아니면 스케쥴러?)
+
+
+
+// 검색기능(영어)
+SELECT
+	PRODUCT_NO,
+	PRODUCT_NAME,
+	PRODUCT_PHOTO1
+FROM
+	PRODUCT
+WHERE
+	PRODUCT_NAME
+LIKE
+	'%' || #{spell} '%'
+ORDER
+BY
+	PRODUCT_NO
+DESC
+//검색기능 (한글)
+
+
+2. cart.jsp
+
+// 유저의 카트 리스트 출력
+SELECT
+	c.PRODUCT_NO,
+	c.CART_AMOUNT,
+	p.PRODUCT_PRICE,
+	p.PRODUCT_PHOTO1
+FROM
+	CART c
+JOIN
+	PRODUCT p
+ON
+	c.PRODUCT_NO = p.PRODUCT_NO
+WHERE
+	c.member_NO = #{member_no}
+ORDER
+BY
+	c.CART_NUM
+DESC
+
+
+// 게스트 카트 리스트 출력
+SELECT
+	c.PRODUCT_NO,
+	c.GUEST_CART_AMOUNT,
+	p.PRODUCT_PRICE,
+	p.PRODUCT_PHOTO1
+FROM
+	GUEST_CART c
+JOIN
+	PRODUCT p
+ON
+	c.PRODUCT_NO = p.PRODUCT_NO
+WHERE
+	c.GUEST_NO = #{guest_no}
+ORDER
+BY
+	c.GUEST_CART_NUM
+DESC
+
+
+// 카트에서 구매
+  // 주문건 생성
+INSERT
+INTO
+	MEMBER_ORDERS
+VALUES
+	(
+	default,
+	#{member_addr1},
+	#{member_addr2},
+	#{post_num},
+	default,
+	#{member_no}
+	)
+
+  // 주문 상세 생성  (관리자의 승인 시)
+INSERT
+INTO
+	ORDERS_DETAIL
+VALUES
+	(
+	default,
+	#{product_no},
+	#{orders_no},
+	#{orders_detail_amount},
+	#{orders_detail_price},
+	default,
+	defualt <==== 송장 번호는 택배사에서 만들어줌 (defualt 는 'NULL')
+	)
+
+// 비회원 카트에서 구매
+  // 비회원 주문건 생성
+INSERT
+INTO
+	GUEST_ORDERS
+VALUES
+	(
+	default,
+	#{guest_address1},
+	#{guest_address2},
+	#{guest_postcode},
+	default
+	)
+
+  // 비회원 주문 상세 생성
+INSERT
+INTO
+	ORDERS_DETAIL
+VALUES
+	(
+	default,
+	#{product_no},
+	#{guest_orders_no},
+	#{guest_orders_detail_amount},
+	#{guest_orders_detail_price},
+	default,
+	defualt <==== 송장 번호는 택배사에서 만들어줌 (defualt 는 'NULL')
+	)
+	
+
+	
+	
+	
